@@ -1,11 +1,24 @@
+# MacOS
+.DS_Store
+
+# Legacy VuePress build artifacts
 /.vuepress/.cache/
 /.vuepress/.temp/
 /.vuepress/dist/
-/node_modules/
+
+# TypeSpec output
+tsp-output/
+dist/
+
+# Dependency directories
+node_modules/
+
+# Editor settings
 .idea/
 .vscode/
-.DS_Store
 *.swp
+
+# Legacy root-level scripts and config fragments
 /*.*js
 /*.json
 /*.sh

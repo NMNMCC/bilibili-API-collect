@@ -5,16 +5,16 @@
   "author": "SocialSisterYi <1440239038@qq.com>",
   "license": "CC-BY-NC-4.0",
   "scripts": {
-    "dev": "vuepress dev",
-    "build": "NODE_OPTIONS='--max-old-space-size=8192' vuepress build"
+    "dev": "tsp compile . --watch",
+    "build": "tsp compile .",
+    "lint": "tsp compile . --no-emit"
   },
   "devDependencies": {
-    "@vuepress/bundler-vite": "^2.0.0-rc.24",
-    "@vuepress/plugin-search": "^2.0.0-rc.110",
-    "@vuepress/plugin-shiki": "^2.0.0-rc.110",
-    "@vuepress/theme-default": "^2.0.0-rc.110",
-    "markdown-it-task-lists": "^2.1.1",
-    "sass-embedded": "^1.89.2",
-    "vuepress": "^2.0.0-rc.24"
+    "@typespec/compiler": "^1.7.1",
+    "@typespec/http": "^1.7.0",
+    "@typespec/openapi": "^1.7.0",
+    "@typespec/openapi3": "^1.7.0",
+    "@typespec/rest": "^0.77.0",
+    "@typespec/versioning": "^0.77.0"
   }
 }

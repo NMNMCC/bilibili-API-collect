@@ -60,6 +60,10 @@ B站 API 采用 C/S 结构，大多数接口为 REST API 和 gRPC，少部分接
 
 更多信息请浏览 [贡献指南](CONTRIBUTING.md)
 
+## 🧭 TypeSpec 迁移说明
+
+项目已完全迁移至 TypeSpec 作为唯一的接口描述来源，不再维护 VuePress 文档。主规格文件位于 `main.tsp`，可通过 `yarn build` 生成 `dist/openapi/bilibili.openapi.yaml`。
+
 ## 🍴目录
 
 计划整理分类 & 目录：(文档已完结请选中 checkbox)
