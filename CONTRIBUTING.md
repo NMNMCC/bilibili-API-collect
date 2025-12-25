@@ -283,3 +283,115 @@ PR 正文使用 **无序列表** 写明更改的每一项内容, 可以使用复
 
 <!--这也是常识喵-->
 PR 合并后, 请及时删除或更新分支. 特别是在使用压缩合并或变基合并后, 请 `Discard changes` 或直接删除分支, 以免在下一次 PR 后出现重复相同提交的问题
+
+## TypeSpec API 定义
+
+为了解决 Markdown 文档难以生成 SDK 的问题，本项目正在进行 TypeSpec 迁移。TypeSpec 是 Microsoft 开发的 API 描述语言，可以生成 OpenAPI 规范、客户端 SDK 和文档。
+
+### TypeSpec 的优势
+
+- **自动化 SDK 生成**: 可以为多种编程语言自动生成类型安全的客户端库
+- **OpenAPI 兼容**: 生成标准的 OpenAPI 3.0 规范，兼容现有工具生态
+- **强类型系统**: 提供类型检查和验证，减少文档错误
+- **IDE 支持**: 提供语法高亮、自动补全等开发体验
+
+### TypeSpec 文件结构
+
+TypeSpec 定义位于 `typespec/` 目录，结构与 `docs/` 目录相对应：
+
+```
+typespec/
+├── main.tsp              # 主入口文件，包含公共模型
+├── user/
+│   └── info.tsp         # 用户信息 API
+├── login/
+│   └── qrcode.tsp       # 登录 API
+└── ...                   # 其他 API 模块
+```
+
+### 编写 TypeSpec 定义
+
+#### 1. 创建新模块
+
+在 `typespec/` 目录下创建对应的 `.tsp` 文件，例如 `typespec/video/info.tsp`：
+
+```typespec
+import "@typespec/http";
+import "@typespec/rest";
+
+using TypeSpec.Http;
+using TypeSpec.Rest;
+
+namespace BilibiliAPI.Video;
+
+@route("/x/web-interface/view")
+@tag("Video")
+interface VideoInfo {
+  @get
+  @doc("获取视频详细信息")
+  getVideoInfo(
+    @query @doc("稿件 avid") aid?: int64,
+    @query @doc("稿件 bvid") bvid?: string,
+  ): ApiResponse<VideoDetail>;
+}
+
+@doc("视频详细信息")
+model VideoDetail {
+  @doc("稿件 bvid")
+  bvid: string;
+  
+  @doc("稿件 avid")
+  aid: int64;
+  
+  // ... 其他字段
+}
+```
+
+#### 2. 添加到主文件
+
+在 `typespec/main.tsp` 中添加 import：
+
+```typespec
+import "./video/info.tsp";
+```
+
+#### 3. 编译和验证
+
+```bash
+# 编译 TypeSpec 定义
+npm run typespec:compile
+
+# 格式化代码
+npm run typespec:format
+```
+
+编译成功后，OpenAPI 规范将生成在 `tsp-output/@typespec/openapi3/openapi.yaml`。
+
+### TypeSpec 语法要点
+
+- **模型定义**: 使用 `model` 定义数据结构
+- **接口定义**: 使用 `interface` 定义 API 端点集合
+- **HTTP 方法**: 使用 `@get`、`@post`、`@put`、`@delete` 等装饰器
+- **路由**: 使用 `@route` 指定 URL 路径
+- **参数**: 使用 `@query`、`@path`、`@header`、`@body` 指定参数位置
+- **文档**: 使用 `@doc` 添加说明文字
+
+### 迁移指南
+
+从 Markdown 迁移到 TypeSpec 时：
+
+1. **保留 Markdown**: Markdown 文档提供重要的使用说明、示例和上下文，应继续保留
+2. **添加 TypeSpec**: 为 Markdown 中描述的 API 创建对应的 TypeSpec 定义
+3. **数据模型**: 将表格中的字段定义转换为 TypeSpec 模型
+4. **API 端点**: 将 URL、请求方法、参数转换为 TypeSpec 接口
+5. **文档注释**: 使用 `@doc` 添加字段和接口的说明
+
+参考示例：
+- [typespec/user/info.tsp](../typespec/user/info.tsp) - 用户信息 API
+- [typespec/login/qrcode.tsp](../typespec/login/qrcode.tsp) - 二维码登录 API
+
+### 相关资源
+
+- [TypeSpec 官方文档](https://typespec.io/)
+- [TypeSpec GitHub](https://github.com/microsoft/typespec)
+- [typespec/README.md](../typespec/README.md) - 本项目 TypeSpec 使用说明

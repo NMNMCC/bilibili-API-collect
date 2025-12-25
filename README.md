@@ -56,7 +56,16 @@ B站 API 采用 C/S 结构，大多数接口为 REST API 和 gRPC，少部分接
 
 1. 文档二级目录尚未完成
 2. 部分文档较旧，修改与更新没有跟进
-3. 目前文档使用 Markdown 语法编写，不易生成编程语言的 SDK，详见 [#604](https://github.com/SocialSisterYi/bilibili-API-collect/issues/604)
+3. ~~目前文档使用 Markdown 语法编写，不易生成编程语言的 SDK，详见 [#604](https://github.com/SocialSisterYi/bilibili-API-collect/issues/604)~~ **正在进行 TypeSpec 迁移**
+
+### TypeSpec API 规范
+
+本项目正在进行 TypeSpec 迁移，以支持自动化 SDK 生成和更好的工具支持。TypeSpec 是一种用于描述 API 的语言，可以生成 OpenAPI 规范、客户端 SDK 和文档。
+
+- **TypeSpec 定义**: 位于 `typespec/` 目录
+- **构建命令**: `npm run typespec:compile`
+- **输出**: OpenAPI 3.0 规范文件在 `tsp-output/@typespec/openapi3/openapi.yaml`
+- **详细说明**: 查看 [typespec/README.md](typespec/README.md)
 
 更多信息请浏览 [贡献指南](CONTRIBUTING.md)
 

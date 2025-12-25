@@ -9,3 +9,9 @@
 /*.*js
 /*.json
 /*.sh
+
+# TypeSpec output
+/tsp-output/
+/typespec/tsp-output/
+*.tsp.yaml
+openapi.yaml

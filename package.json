@@ -6,9 +6,17 @@
   "license": "CC-BY-NC-4.0",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "NODE_OPTIONS='--max-old-space-size=8192' vuepress build"
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' vuepress build",
+    "typespec:compile": "tsp compile typespec",
+    "typespec:watch": "tsp compile typespec --watch",
+    "typespec:format": "tsp format typespec/**/*.tsp"
   },
   "devDependencies": {
+    "@typespec/compiler": "^1.7.1",
+    "@typespec/http": "^1.7.0",
+    "@typespec/openapi": "^1.7.0",
+    "@typespec/openapi3": "^1.7.0",
+    "@typespec/rest": "^0.77.0",
     "@vuepress/bundler-vite": "^2.0.0-rc.24",
     "@vuepress/plugin-search": "^2.0.0-rc.110",
     "@vuepress/plugin-shiki": "^2.0.0-rc.110",
